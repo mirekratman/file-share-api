@@ -1,17 +1,23 @@
 "use strict";
+/**
+ * Simple Rest API server
+ */
 
 import express from 'express';
-var app = express();
+const ApiServer = express();
 
-app.get('/listUsers', function (req, res) {
+
+ApiServer.get('/getfilelist', function (req, res) {
+
+    res.end( 'aaaa' );
+
+    /*
     fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
         console.log( data );
         res.end( data );
     });
+    */
 })
 
 
-
-
-
-module.export app;
+export default ApiServer;
