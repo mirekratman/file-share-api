@@ -7,6 +7,8 @@
 import express from 'express';
 import path from 'path';
 import {FileManager} from 'simple-api-modules';
+
+/** ToDo **/
 import multer from 'multer';
 
 const __dirname = path.resolve();
@@ -14,6 +16,7 @@ const __dirname = path.resolve();
 /* Should be system TEMP location */
 const tmpStorage = path.join(__dirname, "_tmpStorage");
 
+/** ToDo **/
 const multerUpload = multer({dest: tmpStorage})
 const Api = express();
 const fm = new FileManager(tmpStorage);
