@@ -7,28 +7,57 @@
 import express from 'express';
 import path from 'path';
 import {FileManager} from 'simple-api-modules';
+import multer from 'multer';
 
-const tmpStorage = path.join("../../_tmpStorage");
+const __dirname = path.resolve();
 
+/* Should be system TEMP location */
+const tmpStorage = path.join(__dirname, "_tmpStorage");
+
+const multerUpload = multer({dest: tmpStorage})
 const Api = express();
-const fm = new FileManager()
+const fm = new FileManager(tmpStorage);
 
+/**
+ * Read file
+ */
+Api
+    .get('/api/readFile/:fileName', async (req, res) => {
+        try {
+            let data = await fm.read(req.params.fileName);
 
-console.log(tmpStorage);
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end(data);
+        }
+        catch (err) {
+            console.error(`Error occured while reading file : "${req.params.fileName}" !`, err);
+            res.end('No content');
+        }
+    })
 
-Api.get('/readFile', function (req, res) {
+    .get('/api/showList', async (req, res) => {
+        try {
+            let data = await fm.list();
 
-    FileManager
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(data));
+        }
+        catch (err) {
+            console.error(`Error occured while reading list !`, err);
+            res.end('No content');
+        }
+    })
 
-    res.end('aaaa');
+    .post('/api/saveFile', multerUpload.single('fileName'), async (req, res) => {
 
-    /*
-    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-        console.log( data );
-        res.end( data );
+        res.end('ToDo');
+
+    })
+
+    .delete('/api/deleteFile', async (req, res) => {
+
+        res.end('ToDo');
+
     });
-    */
-})
-
 
 export default Api;
