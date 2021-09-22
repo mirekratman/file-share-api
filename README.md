@@ -18,5 +18,5 @@ To run API please use command
 `npm run-script start`
 
 
-
+...Still missing tests + some functionality 
 ...TBC
